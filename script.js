@@ -61,10 +61,10 @@ let lastChartData = null;
 initialize();
 
 function initialize() {
-  if (!window.Astronomy) {
-    setError("Astronomy Engine failed to load from CDN.");
-    return;
-  }
+//  if (!window.Astronomy) {
+//    setError("Astronomy Engine failed to load from CDN.");
+ //   return;
+//  }
 
   const now = new Date();
   dom.singleDate.value = formatDateInput(now);
