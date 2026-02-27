@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astronomical Observing Planner</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="stars"></div>
+  <main class="app">
+    <header class="app-header">
+      <h1>Astronomical Observing Planner</h1>
+      <p>Client-side planetary observing calculations with JPL-based ephemerides.</p>
+    </header>
+
+    <section class="controls-grid">
+      <article class="panel" id="location-panel">
+        <h2>Location Panel</h2>
+        <div class="input-grid">
+          <label for="latitude">Latitude (deg)</label>
+          <input id="latitude" type="number" step="0.000001" min="-90" max="90" placeholder="e.g. 34.0522" />
+
+          <label for="longitude">Longitude (deg, east +)</label>
+          <input id="longitude" type="number" step="0.000001" min="-180" max="180" placeholder="e.g. -118.2437" />
+
+          <label for="elevation">Elevation (m)</label>
+          <input id="elevation" type="number" step="1" value="0" />
+        </div>
+        <div class="button-row">
+          <button id="detect-location" type="button">Detect My Location</button>
+        </div>
+        <p id="location-status" class="meta" aria-live="polite"></p>
+      </article>
+
+      <article class="panel" id="object-panel">
+        <h2>Object Selection</h2>
+        <label for="planet">Target Planet</label>
+        <select id="planet">
+          <option>Mercury</option>
+          <option>Venus</option>
+          <option>Mars</option>
+          <option>Jupiter</option>
+          <option>Saturn</option>
+          <option>Uranus</option>
+          <option>Neptune</option>
+        </select>
+
+        <h2>Mode Selector</h2>
+        <div class="radio-stack">
+          <label><input type="radio" name="mode" value="single" checked /> Single Time Calculation</label>
+          <label><input type="radio" name="mode" value="night" /> Scan Entire Night</label>
+        </div>
+      </article>
+
+      <article class="panel" id="time-panel">
+        <h2>Time Panel</h2>
+
+        <div id="single-controls" class="mode-block">
+          <h3>Single Time</h3>
+          <div class="input-grid">
+            <label for="single-date">Date (local)</label>
+            <input id="single-date" type="date" />
+
+            <label for="single-time">Time (local)</label>
+            <input id="single-time" type="time" step="60" />
+          </div>
+        </div>
+
+        <div id="night-controls" class="mode-block hidden">
+          <h3>Night Scan</h3>
+          <div class="input-grid">
+            <label for="night-date">Night of Date (local)</label>
+            <input id="night-date" type="date" />
+
+            <label for="threshold">Observing Threshold (deg)</label>
+            <input id="threshold" type="number" step="0.1" value="30" min="0" max="89" />
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button id="calculate" type="button">Calculate</button>
+        </div>
+        <p id="status" class="meta" aria-live="polite"></p>
+        <p id="error" class="error" aria-live="polite"></p>
+      </article>
+    </section>
+
+    <section class="panel" id="results-panel">
+      <h2>Results Dashboard</h2>
+      <div id="results" class="results-grid">
+        <article class="result-block">
+          <h3>Coordinates</h3>
+          <dl>
+            <dt>RA</dt><dd id="out-ra">--</dd>
+            <dt>Dec</dt><dd id="out-dec">--</dd>
+            <dt>Julian Date</dt><dd id="out-jd">--</dd>
+          </dl>
+        </article>
+
+        <article class="result-block">
+          <h3>Horizontal</h3>
+          <dl>
+            <dt>Altitude</dt><dd id="out-alt">--</dd>
+            <dt>Azimuth</dt><dd id="out-az">--</dd>
+            <dt>Above Horizon</dt><dd id="out-above">--</dd>
+          </dl>
+        </article>
+
+        <article class="result-block">
+          <h3>Observability</h3>
+          <dl>
+            <dt>Rise Time</dt><dd id="out-rise">--</dd>
+            <dt>Transit Time</dt><dd id="out-transit">--</dd>
+            <dt>Set Time</dt><dd id="out-set">--</dd>
+            <dt>Max Altitude</dt><dd id="out-max-alt">--</dd>
+            <dt>Time Above Threshold</dt><dd id="out-time-threshold">--</dd>
+            <dt>Best Observing Window</dt><dd id="out-best-window">--</dd>
+          </dl>
+        </article>
+
+        <article class="result-block">
+          <h3>Photometric</h3>
+          <dl>
+            <dt>Apparent Magnitude</dt><dd id="out-mag">--</dd>
+            <dt>Phase Angle</dt><dd id="out-phase-angle">--</dd>
+            <dt>Phase Fraction</dt><dd id="out-phase-fraction">--</dd>
+            <dt>Phase %</dt><dd id="out-phase-percent">--</dd>
+            <dt>Angular Diameter</dt><dd id="out-angular-diameter">--</dd>
+          </dl>
+        </article>
+      </div>
+
+      <article id="night-summary" class="night-summary hidden">
+        <h3>Night Scan Summary</h3>
+        <p id="night-range">--</p>
+        <p id="threshold-ranges">--</p>
+      </article>
+
+      <article id="chart-wrap" class="chart-wrap hidden">
+        <h3>Altitude vs Time</h3>
+        <canvas id="altitude-chart" width="1200" height="420"></canvas>
+      </article>
+    </section>
+  </main>
+
+  <div id="loading" class="loading hidden" role="status" aria-live="assertive">
+    <div class="spinner"></div>
+    <span>Computing ephemerides...</span>
+  </div>
+</body>
+</html>
