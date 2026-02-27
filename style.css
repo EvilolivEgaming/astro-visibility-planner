@@ -1,0 +1,307 @@
+:root {
+  --bg0: #02040b;
+  --bg1: #050a19;
+  --bg2: #0a1330;
+  --panel: rgba(11, 20, 45, 0.74);
+  --panel-border: rgba(126, 156, 234, 0.25);
+  --text: #e9efff;
+  --muted: #9daacc;
+  --accent: #7ed0ff;
+  --accent-2: #8dffa9;
+  --warn: #ff9a7a;
+  --error: #ff6f91;
+  --shadow: 0 16px 44px rgba(0, 0, 0, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--text);
+  font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+  background:
+    radial-gradient(circle at 8% 14%, rgba(96, 144, 255, 0.1) 0%, transparent 24%),
+    radial-gradient(circle at 86% 28%, rgba(70, 175, 255, 0.1) 0%, transparent 22%),
+    radial-gradient(circle at 48% 82%, rgba(143, 94, 255, 0.09) 0%, transparent 28%),
+    linear-gradient(170deg, var(--bg0) 0%, var(--bg1) 48%, var(--bg2) 100%);
+}
+
+body {
+  position: relative;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 70% 10%, rgba(190, 230, 255, 0.95), transparent),
+    radial-gradient(1.6px 1.6px at 35% 70%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1.4px 1.4px at 85% 74%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 52% 52%, rgba(225, 240, 255, 0.9), transparent);
+  background-repeat: repeat;
+  background-size: 300px 300px;
+}
+
+.app {
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  padding: 24px 16px 42px;
+  position: relative;
+  z-index: 1;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.6vw, 2.3rem);
+  letter-spacing: 0.6px;
+}
+
+.app-header p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 14px;
+  backdrop-filter: blur(2px);
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  color: var(--accent);
+}
+
+.panel h3 {
+  margin: 6px 0 8px;
+  font-size: 0.95rem;
+  color: var(--accent-2);
+}
+
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+input,
+select,
+button {
+  border-radius: 10px;
+  border: 1px solid rgba(140, 168, 240, 0.35);
+  background: rgba(6, 12, 30, 0.8);
+  color: var(--text);
+  height: 38px;
+  padding: 0 10px;
+  font-size: 0.94rem;
+}
+
+input:focus,
+select:focus,
+button:focus {
+  outline: 2px solid rgba(126, 208, 255, 0.55);
+  outline-offset: 1px;
+}
+
+button {
+  cursor: pointer;
+  border-color: rgba(126, 208, 255, 0.65);
+  background: linear-gradient(145deg, rgba(22, 47, 90, 0.95), rgba(15, 34, 69, 0.95));
+  font-weight: 700;
+}
+
+button:hover {
+  filter: brightness(1.08);
+}
+
+.button-row {
+  margin-top: 10px;
+}
+
+.button-row button {
+  width: 100%;
+}
+
+.radio-stack {
+  display: grid;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.radio-stack label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+
+.mode-block {
+  margin-bottom: 8px;
+}
+
+.meta {
+  margin: 8px 0 0;
+  min-height: 18px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.error {
+  margin: 8px 0 0;
+  min-height: 18px;
+  color: var(--error);
+  font-size: 0.84rem;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.result-block {
+  background: rgba(7, 13, 30, 0.92);
+  border: 1px solid rgba(126, 156, 234, 0.25);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.result-block h3 {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.result-block dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+}
+
+.result-block dt {
+  color: var(--muted);
+  font-size: 0.77rem;
+}
+
+.result-block dd {
+  margin: 0;
+  font-size: 0.89rem;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.night-summary,
+.chart-wrap {
+  margin-top: 12px;
+  background: rgba(7, 13, 30, 0.92);
+  border: 1px solid rgba(126, 156, 234, 0.25);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.night-summary p {
+  margin: 4px 0;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+#altitude-chart {
+  width: 100%;
+  height: 260px;
+  display: block;
+  background: linear-gradient(180deg, rgba(5, 10, 26, 0.95), rgba(5, 10, 20, 0.95));
+  border-radius: 8px;
+  border: 1px solid rgba(126, 208, 255, 0.2);
+}
+
+.loading {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: rgba(2, 4, 11, 0.7);
+  color: var(--text);
+}
+
+.spinner {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 4px solid rgba(126, 208, 255, 0.28);
+  border-top-color: var(--accent);
+  animation: spin 1s linear infinite;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1080px) {
+  .controls-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #time-panel {
+    grid-column: 1 / -1;
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .controls-grid,
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app {
+    padding: 14px 10px 22px;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 0.9rem;
+  }
+}
